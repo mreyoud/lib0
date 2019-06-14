@@ -1,0 +1,13 @@
+NAME
+	lib0 - the zero library
+
+DESCRIPTION
+	lib0 is a conforming C89 utility library providing boilerplate
+	functionality and aims to produce small object files suitable
+	for static linking.
+
+RATIONALE
+	Libraries such as Glib are big, bloated, and provide nonintuitive
+	APIs with mile long, underscore ridden, function names.
+	They also are no good for static linking.
+

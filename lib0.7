@@ -1,0 +1,71 @@
+.TH LIB0 7 lib0
+.SH NAME
+lib0 - the zero library
+.SH DESCRIPTION
+.B lib0
+is a conforming C89 utility library providing boilerplate functionality
+optimised for static linking.
+These structs are to be simply embedded inside your own struct, thus
+delegating all memory management to the caller.
+.SH UTILITY MACROS
+.SS LEN(X)
+Returns the number of elements in the specified static array.
+.SS USED(X)
+Marks the specified variable as intentionally not used.
+.SS ABS(X)
+Returns the absolute value of X.
+.SS MIN(A, B)
+Returns the smaller of two numbers.
+.SS MAX(A, B)
+Returns the bigger of two numbers.
+.SS CAP(X, A, B)
+Returns X capped to between A(min) and B(max).
+.SS BTW(X, A, B)
+Returns whether X falls between A(min) and B(max).
+.SS CMP(X, Y)
+Returns 1 if X > Y, -1 if X < Y, and 0 if X equals Y.
+.SS SIZEOF(T, M)
+Gets the size of type T struct's member M.
+.SS OFFSETOF(T, M)
+Gets the displacement of member M in a type T struct.
+.SS CONTAINEROF(P, T, M)
+Casts pointer P to member M of type T out to the containing struct.
+.SH LISTS
+Circular doubly linked lists.
+.SS LFOR(LIST, POS, TMP)
+Inerates a list safe for removals.
+.SS LFORR(LIST, POS, TMP)
+Inerates a list backwards safe for removals.
+.SS void linit(struct list *);
+Initializes a list head.
+.SS void ladd(struct list *, struct list *);
+Adds a node to the list's head.
+.SS void laddt(struct list *, struct list *);
+Adds a node to the list's tail.
+.SS void ldel(struct list *);
+Unlinks the specified entry from the list.
+.SS void lfor(const struct list *, void (*)(struct list *));
+calls the specified function on all list entries in order.
+.SS void lforr(const struct list *, void (*)(struct list *));
+calls the specified function on all list entries in reverse order.
+.SH TREES
+Threaded balanced binary search trees. Duplicate keys are *not* stored.
+.SS typedef int (*tcmpfn)(const struct node *, const struct node *);
+An strcmp-like function to be called when comparing nodes.
+.SS void tinit(struct tree *, tcmpfn);
+Inits a tree with the specified compare function.
+.SS struct node *tget(const struct tree *, const struct node *);
+Lookup involves filling a dummy node with the key. Returns the node with the
+same key or NULL.
+.SS struct node *tadd(struct tree *, struct node *);
+Inserts a node, or returns the node with the existing key.
+.SS void tdel(struct tree *, struct node *);
+Removes an assumed already inserted node from the tree.
+.SH UTILITIES
+.SS void die(const char * const, ...);
+Calls exit(-1), writing the specified formatted message to stderr.
+.SS void fatal(const char * const, ...);
+Calls abort, writing the specified formatted message to stderr.
+.SS void warn(const char * const, ...);
+Prints the specified formatted message to stderr.
+
